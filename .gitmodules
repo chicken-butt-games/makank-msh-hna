@@ -1,0 +1,3 @@
+[submodule "vendor/NotAVegetable"]
+	path = vendor/NotAVegetable
+	url = http://github.com/not-a-vegetable/NotAVegetable

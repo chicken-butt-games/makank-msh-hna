@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(MakankMshHna src/main.cpp)
 
-target_include_directories(MakankMshHna
+target_include_directories(
+        MakankMshHna
         PUBLIC
         ../NotAVegetable/src
         ../NotAVegetable/vendor/spdlog/include
