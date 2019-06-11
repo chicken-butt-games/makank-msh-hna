@@ -11,6 +11,9 @@ target_include_directories(
         PUBLIC
         ../NotAVegetable/src
         ../NotAVegetable/vendor/spdlog/include
+        ../NotAVegetable/vendor/GLFW/include
+        ../NotAVegetable/vendor/GLAD/include
+        ../NotAVegetable/vendor/imgui/imgui
         )
 
 target_link_libraries(

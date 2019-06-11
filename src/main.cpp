@@ -9,11 +9,17 @@ public:
     }
 
     void OnUpdate() override {
-        NAV_INFO("ExampleLayer::Update");
+
+        if (NotAVegetable::Input::IsKeyPressed(NAV_KEY_TAB)) {
+            NAV_INFO("Tab key is pressed");
+        }
     }
 
     void OnEvent(NotAVegetable::Event &event) override {
-        NAV_TRACE("{0}", event);
+        if (event.GetEventType() == NotAVegetable::EventType::KeyPressed) {
+            NotAVegetable::KeyPressedEvent &e = (NotAVegetable::KeyPressedEvent &) event;
+            NAV_TRACE("{0}", (char) e.GetKeyCode());
+        }
     }
 };
 
@@ -21,6 +27,7 @@ class MakankMshHna : public NotAVegetable::Application {
 public:
     MakankMshHna() {
         PushLayer(new ExampleLayer());
+        PushOverlay(new NotAVegetable::ImGuiLayer());
     }
 
     ~MakankMshHna() {
