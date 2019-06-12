@@ -1,5 +1,6 @@
 #include <iostream>
 #include <NotAVegetable.h>
+#include <imgui.h>
 
 class ExampleLayer : public NotAVegetable::Layer {
 public:
@@ -10,29 +11,42 @@ public:
 
     void OnUpdate() override {
 
-        if (NotAVegetable::Input::IsKeyPressed(NAV_KEY_TAB)) {
-            NAV_INFO("Tab key is pressed");
-        }
+    }
+
+    virtual void OnImGuiRender() override {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello world");
+        ImGui::End();
     }
 
     void OnEvent(NotAVegetable::Event &event) override {
         if (event.GetEventType() == NotAVegetable::EventType::KeyPressed) {
-            NotAVegetable::KeyPressedEvent &e = (NotAVegetable::KeyPressedEvent &) event;
-            NAV_TRACE("{0}", (char) e.GetKeyCode());
+            auto &e = (NotAVegetable::KeyPressedEvent &) event;
+            NAV_TRACE("Pressed {0}", (char) e.GetKeyCode());
         }
+
+        if (event.GetEventType() == NotAVegetable::EventType::KeyReleased) {
+            auto &e = (NotAVegetable::KeyReleasedEvent &) event;
+            NAV_TRACE("Released {0}", (char) e.GetKeyCode());
+        }
+
+        if (event.GetEventType() == NotAVegetable::EventType::JoyStickConnected) {
+            auto &e = (NotAVegetable::JoyStickConnectedEvent &) event;
+            NAV_TRACE("Controller ID: {0}", e.GetJoyStickID());
+        }
+
     }
+
+
 };
 
 class MakankMshHna : public NotAVegetable::Application {
 public:
     MakankMshHna() {
         PushLayer(new ExampleLayer());
-        PushOverlay(new NotAVegetable::ImGuiLayer());
     }
 
-    ~MakankMshHna() {
-
-    }
+    ~MakankMshHna() override = default;
 
 };
 
